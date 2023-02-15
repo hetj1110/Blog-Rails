@@ -1,0 +1,9 @@
+<h1>Home#index</h1>
+<p>Find me in app/views/home/index.html.erb</p>
+<h3>Here I will put all resent and public Blogs</h3>
+
+<% if user_signed_in? %>
+    <p>Your Role is <%= current_user.role %></p>
+<% else %>
+    <p>Login to see role</p>
+<% end %>

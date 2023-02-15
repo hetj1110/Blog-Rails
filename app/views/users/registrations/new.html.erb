@@ -1,0 +1,113 @@
+<div class="col-lg-6 mx-lg-auto">
+  <div class="card shadow">
+    <div class="card-header">
+      <h3 class="card-title text-center">Sign up</h3>
+    </div>
+    <div class="card-body">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "users/shared/error_messages", resource: resource %>
+
+        <div class="row mb-4 col form-group">
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :first_name, class:"mb-2" %><br />
+              <%= f.text_field :first_name, class: "form-control form-control-lg" %>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :last_name , class:"mb-2"%><br />
+              <%= f.text_field :last_name, class: "form-control form-control-lg" %>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row mb-4 col form-group">
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :contact_number, class:"mb-2" %><br />
+              <%= f.text_field :contact_number, class: "form-control form-control-lg" %>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :date_of_birth, class:"mb-2" %><br />
+              <%= f.date_field :date_of_birth, class: "form-control form-control-lg" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :address , class:"mb-2"%><br />
+          <%= f.text_field :address, class: "form-control form-control-lg" %>
+        </div>
+
+        <div class="row mb-4 col form-group">
+          <div class="col">
+            <div class="form-group dropdown">
+              <%= f.label :country, class:"mb-2" %><br />
+              <%= f.select :country, @user.countries.invert, { include_blank: true }, class: "form-control form-control-lg" %>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :gender, class:"mb-2" %><br />
+              <%= f.select :gender, ['male', 'female', 'unknown'], { include_blank: true }, class: "form-control form-control-lg" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4 col form-group">
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :email, class:"mb-2" %><br />
+              <%= f.email_field :email, autocomplete: "email", class: "form-control form-control-lg" %>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :username, class:"mb-2" %><br />
+              <%= f.text_field :username,  autocomplete: "username", class: "form-control form-control-lg" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4 col form-group">
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :password, class:"mb-2" %>
+              <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %><br />
+              <%= f.password_field :password, autocomplete: "new-password", class: "form-control form-control-lg" %>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :password_confirmation, class:"mb-2" %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control form-control-lg" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions mb-2 mt-2">
+          <%= f.submit "Sign up", class:"btn btn-dark btn-lg", data: { turbo: false } %>
+        </div>
+      <% end %>
+
+      <%= render "users/shared/links" %>
+    </div>  
+  </div>
+</div>
+
+<div class="container">
+<pre>
+
+
+
+
+
+
+
+</pre>
+</div>
