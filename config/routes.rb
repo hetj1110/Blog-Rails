@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show]
 
   root 'home#index'
+  
+  get 'confirmation_panding', to: "home#after_registration_path"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
