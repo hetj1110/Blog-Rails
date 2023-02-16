@@ -3,51 +3,51 @@
         <div class="row align-items-center flex-row-reverse">
             <div class="col-lg-6">
                 <div class="about-text go-to">
-                    <h3 class="dark-color"><%= @user.fullname %></h3>
+                    <h3 class="dark-color"><%= current_user.fullname %></h3>
                     <h6 ><%= link_to 'Edit Profile', edit_user_registration_path, class: "theme-color lead" %></h6>
                     <%# <p>I <mark>design and develop</mark> services for customers of all sizes, specializing in creating stylish, modern websites, web services and online stores. My passion is to design digital user experiences through the bold interface and meaningful interactions.</p> %>
                     <div class="row about-list">
                         <div class="col-md-6">
                             <div class="media">
                                 <label>E-mail</label>
-                                <p> <%= @user.email %></p>
+                                <p> <%= current_user.email %> </p>
                             </div>
 
                             <div class="media">
                                 <label>Birth Date</label>
-                                <p> <%= @user.date_of_birth %></p>
+                                <p> <%= current_user.formatted_date %></p>
                             </div>
                             
                             <div class="media">
                                 <label>Address</label>
-                                <p><%= @user.address %></p>
+                                <p><%= current_user.address %></p>
                             </div>
 
                             <div class="media">
                                 <label>Contect Number</label>
-                                <p><%= @user.contact_number %></p>
+                                <p><%= current_user.contact_number %></p>
                             </div>
                             
                         </div>
                         <div class="col-md-6">
                             <div class="media">
                                 <label>Username</label>
-                                <p> <%= @user.username %></p>
+                                <p> <%= current_user.username %></p>
                             </div>
 
                             <div class="media">
                                 <label>Age</label>
-                                <p><%= @user.age %></p>
+                                <p><%= current_user.age %></p>
                             </div>
 
                             <div class="media">
                                 <label>Residence</label>
-                                <p><%= @user.country_name%></p>
+                                <p><%= current_user.country_name%></p>
                             </div>
 
                             <div class="media">
                                 <label>Gender</label>
-                                <p><%= @user.gender%></p>
+                                <p><%= current_user.gender%></p>
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,12 @@
             </div>
             <div class="col-lg-6">
                 <div class="about-avatar">
+                    <% if current_user.avatar.attached? %>
+                        <%= link_to image_tag(current_user.avatar_as_thumbnail), current_user.avatar %>
+                        <%= link_to 'Delete Profile Picture', delete_user_avatar_path(current_user), data: { turbo_method: :delete }%>
+                    <% else %>
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" title="" alt="">
+                    <% end %>
                 </div>
             </div>
         </div>

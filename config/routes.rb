@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations'
   }
 
+  devise_scope :user do
+    delete '/users/:id/delete_avatar', to: 'users/registrations#delete_avatar', as: 'delete_user_avatar'
+  end
+
   resources :profiles, only: [:show]
 
   root 'home#index'

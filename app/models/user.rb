@@ -4,6 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,:recoverable, :rememberable, :validatable,
          :confirmable,:trackable, authentication_keys: [:login], reset_password_keys: [:login] 
 
+         
+  attr_accessor :login
+       
+  def login
+    @login || self.username || self.email
+  end
+              
+  has_one_attached :avatar  
 
   validates :username, presence: true, uniqueness: true
   validates :username, format: { with: /\A[a-z0-9_]{4,16}\z/ }
@@ -11,11 +19,8 @@ class User < ApplicationRecord
   validates :first_name,:last_name, length: {minimum:2, maximum:20}
   validates :first_name,:last_name, format: { with:/\A[a-zA-Z]+\z/, message: "Only letters are allowed" }
 
-
-  attr_accessor :login
-
-  def login
-    @login || self.username || self.email
+  def fullname
+    "#{first_name} #{last_name}"
   end
 
 
@@ -48,9 +53,8 @@ class User < ApplicationRecord
     countries[country]
   end
 
-  def fullname
-    "#{first_name} #{last_name}"
-  end
+
+  validates :date_of_birth, presence: true
 
   def age
     if date_of_birth.present?
@@ -58,6 +62,14 @@ class User < ApplicationRecord
     else
         nil
     end
+  end
+
+  def formatted_date
+    date_of_birth.strftime('%A, %b %d, %Y')
+  end
+
+  def avatar_as_thumbnail
+    avatar.variant(resize_to_limit: [500,500]).processed
   end
 
   private

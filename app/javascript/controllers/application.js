@@ -1,5 +1,5 @@
 import { Application } from "@hotwired/stimulus"
-
+Application.session.drive = false
 const application = Application.start()
 
 // Configure Stimulus development experience

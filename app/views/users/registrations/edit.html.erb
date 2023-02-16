@@ -7,6 +7,11 @@
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= render "users/shared/error_messages", resource: resource %>
           
+          <div class="form-group">
+            <%= f.label :avatar, class:"mb-2" %><br />
+            <%= f.file_field :avatar, class: "form-control form-control-lg" %>
+          </div>
+
           <div class="row mb-4 col form-group">
             <div class="col">
               <div class="form-group">
