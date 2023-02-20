@@ -1,9 +1,12 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,:recoverable, :rememberable, :validatable,
-         :confirmable,:trackable, authentication_keys: [:login], reset_password_keys: [:login] 
 
+  has_many :articles, dependent: :destroy
+  has_many :comments, through: :blogs
+
+  devise :database_authenticatable, :registerable,:recoverable, :rememberable, :validatable,
+         :confirmable,:trackable, authentication_keys: [:login], reset_password_keys: [:login]        
          
   attr_accessor :login
        
@@ -39,11 +42,10 @@ class User < ApplicationRecord
   
   VALID_GENDER = ['male', 'female', 'unknown']
   
+  validates :gender, presence: true
   validates :gender, inclusion: { in: VALID_GENDER }
 
   validates :country, presence: true
-
-
 
   def countries
     CS.countries.with_indifferent_access

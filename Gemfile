@@ -79,11 +79,12 @@ end
 gem 'devise'
 
 # Rolse manage
-gem "cancan"
+gem "cancancan", "~> 3.4"
 
 # This is for Bootstarp CSS
 gem 'cssbundling-rails'
 
 # This is for adding Contries
 gem 'city-state'
+
 

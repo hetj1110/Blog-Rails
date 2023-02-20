@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
   resources :profiles, only: [:show]
 
+  resources :articles do
+    resources :comments, only: [ :create, :edit, :update, :destroy]
+  end
+
   root 'home#index'
   
   get 'confirmation_panding', to: "home#after_registration_path"
