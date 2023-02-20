@@ -1,8 +1,10 @@
 <h1> <%= @article.title %> </h1>
+<p> <%= @article.views %> Views</p>
 <h5> Created <%= time_tag @article.created_at, "data-local": 'time-ago' %> </h5>
+<p> <%= @article.subject %> </p>
 <p> <%= @article.body %> </p>
 
-<% if user_signed_in? %>
+<% if user_signed_in? && @article.user == current_user %>
   <ul>
     <li> <%= link_to "Edit", edit_article_path(@article) %> </li>
     <li><%= link_to "Destroy", article_path(@article), 
@@ -17,7 +19,8 @@
 <br>
 
 <h2>Comments</h2>
-
+<%= link_to "View Comments only", article_comments_path(@article) %>
+<br><br>
 <%= render partial: 'comments/comment', collection: @article.comments %>
 <%= render partial: 'comments/form', locals: { comment: @article.comments.new } %>
 <%# <h3>Comments</h3> %>

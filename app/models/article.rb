@@ -1,8 +1,9 @@
 class Article < ApplicationRecord
   belongs_to :user
-  # has_rich_text :body
   has_many :comments, dependent: :destroy
-
+  
+  has_rich_text :body
+  
   VALID_STATUSES = ['public', 'private', 'archived']
 
 
@@ -11,12 +12,11 @@ class Article < ApplicationRecord
   def archived?
     status == 'archived'
   end
-
-
-  def public_count
-      where( status: 'public' ).count
+  def public?
+    status == 'public'
   end
-
-
+  def private?
+    status == 'private'
+  end
 
 end

@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
-
+    @article.update( views: @article.views + 1 )
   end
 
   def new
@@ -60,7 +60,7 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :body, :status)
+      params.require(:article).permit(:title, :subject, :status)
     end
 
     def authorize_user!

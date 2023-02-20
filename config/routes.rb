@@ -14,8 +14,11 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show]
 
   resources :articles do
-    resources :comments#, only: [ :create, :edit, :update, :destroy]
+    resources :comments, only: [ :index, :create, :edit, :update, :destroy]
   end
+
+  get '/all_comments', to: 'comments#all_comments'
+  post '/approve_comments', to: 'comments#approve_comments'
 
   root 'home#index'
   

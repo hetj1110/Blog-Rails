@@ -3,6 +3,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
+  before_action :authorize_user!, only: [:edit, :update, :delete_avatar, :destory]
 
   # GET /resource/sign_up
   # def new
@@ -67,5 +68,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up for inactive accounts.
   def after_inactive_sign_up_path_for(resource)
     confirmation_panding_path
+  end
+
+  def authorize_user!
+    unless @user == current_user
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to article_path(@article)
+    end
   end
 end
