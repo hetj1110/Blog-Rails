@@ -1,13 +1,14 @@
 class ArticlesController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_user!, except: %i[ index show ]
     before_action :set_articles, only: %i[ show edit update destroy ]
+    before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
     @articles = Article.all.order('created_at desc')
   end
 
   def show
-    # @article = Article.all.order('created_at desc')
+
   end
 
   def new
@@ -18,6 +19,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    
     @article = current_user.articles.build(article_params)
 
     respond_to do |format|
@@ -60,4 +62,12 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:title, :body, :status)
     end
+
+    def authorize_user!
+      unless @article.user == current_user
+      flash[:alert] = "You are not authorized to perform this action."
+      redirect_to article_path(@article)
+      end
+    end
+
 end

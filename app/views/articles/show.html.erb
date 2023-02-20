@@ -1,17 +1,25 @@
 <h1> <%= @article.title %> </h1>
+<h5> Created <%= time_tag @article.created_at, "data-local": 'time-ago' %> </h5>
 <p> <%= @article.body %> </p>
 
-<ul>
-  <li> <%= link_to "Edit", edit_article_path(@article) %> </li>
-  <li><%= link_to "Destroy", article_path(@article), 
-                    data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %></li>
-</ul>
+<% if user_signed_in? %>
+  <ul>
+    <li> <%= link_to "Edit", edit_article_path(@article) %> </li>
+    <li><%= link_to "Destroy", article_path(@article), 
+                      data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?"
+                    } %></li>
+  </ul>
+<% end %>
 <br>
 <%= link_to "Back", articles_path %>
 <br>
+
+<h2>Comments</h2>
+
+<%= render partial: 'comments/comment', collection: @article.comments %>
+<%= render partial: 'comments/form', locals: { comment: @article.comments.new } %>
 <%# <h3>Comments</h3> %>
 <%# <%= render @article.comments %>
 

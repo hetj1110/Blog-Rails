@@ -18,20 +18,20 @@ class Ability
     #     can :read, :all
     #   end
 
-    # if user.present?
-    #   can :manage, Article, user_id: user.id
-    #   can :manage, Comment, user_id: user.id
+    if user.present?
+      can :manage, Article, user_id: user.id
+      can :manage, Comment, user_id: user.id
     
-    #   if user.admin?
-    #     can :manage, :all
-    #   elsif user.approver?
-    #     can :update, Comment, approved: false
-    #   end
-    # else
-    #   can :read, Article, published: true
-    #   can :read, PublicDocument
-    #   can :read, Comment, approved: true
-    # end
+      if user.admin?
+        can :manage, :all
+      elsif user.approver?
+        can :update, Comment, approved: false
+      end
+    else
+      can :read, Article, public: true
+      can :read, PublicDocument
+      can :read, Comment, approved: true
+    end
     
 
     #
