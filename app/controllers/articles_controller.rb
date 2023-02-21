@@ -60,7 +60,7 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :subject, :body, :status)
+      params.require(:article).permit(:title, :subject, :status)
     end
 
     def authorize_user!
