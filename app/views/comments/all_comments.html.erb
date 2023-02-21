@@ -1,1 +1,31 @@
-<%# <% form_for  %> %>
+<div class="container">
+    <%= form_with url: approving_comments_path(@comment), method: :patch do |form| %>
+        <h3> Unapproved comments </h3>
+
+        <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">index</th>
+            <th scope="col">User</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Approve</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @comments.each_with_index do |comment,index| %>
+            <tr scope="row">
+                <td><%= index+1 %></td>
+                <td><%= comment.user.username %></td>
+                <td><%= comment.content %></td>
+                <td><div class="field">
+                    <%= form.check_box "comments[comment #{comment.id}]", checked: comment.approved %>
+                </div></td>
+            </tr>
+            <% end %>
+        </tbody>
+        </table>
+        <div class="actions mt-3">
+            <%= form.submit "Approve", class: 'btn btn-dark' %>
+        </div>
+    <%end%>
+</div>

@@ -1,10 +1,7 @@
 <div class="comment">
-  <p><%= comment.content %> - <strong><%= link_to comment.user.username, profile_path(comment.user),  class: "link-dark" %></strong></p>
-  <p> Created <%= time_tag @article.created_at, "data-local": 'time-ago' %> </p>
   <% if comment.approved %>
-    <p><em>Approved</em></p>
-  <% else %>
-    <p><em>Not Approved</em></p>
+    <p><%= comment.content %> - <%= link_to comment.user.username, profile_path(comment.user),  class: "link-dark" %></p>
+    <p> Created <%= time_tag @article.created_at, "data-local": 'time-ago' %> </p>
   <% end %>
   <% if comment.user == current_user %>
     <p><%= link_to 'Edit', edit_article_comment_path(comment.article, comment) %></p>

@@ -17,8 +17,8 @@ Rails.application.routes.draw do
     resources :comments, only: [ :index, :create, :edit, :update, :destroy]
   end
 
-  get '/all_comments', to: 'comments#all_comments'
-  post '/approve_comments', to: 'comments#approve_comments'
+  get '/comments/all_comments', to: 'comments#all_comments',as: 'all_comments'
+  patch '/comments/approve_comments', to: 'comments#approve_comments', as: 'approving_comments'
 
   root 'home#index'
   

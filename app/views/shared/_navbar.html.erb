@@ -12,9 +12,11 @@
         <li class="nav-item">
             <%= link_to "Articles", articles_path, class: "nav-link" %>
         </li>
+        <% if user_signed_in? && current_user.approver? %>
         <li class="nav-item">
-            
+            <%= link_to "Approver Console", all_comments_path, class: "nav-link" %>
         </li>
+        <% end %>
       </ul>
 
       <ul class = "navbar-nav ms-auto mb-2 mb-lg-0">

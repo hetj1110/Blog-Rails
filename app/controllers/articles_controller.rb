@@ -14,14 +14,14 @@ class ArticlesController < ApplicationController
   def new
     @article = current_user.articles.build
   end
-
+  
   def edit
   end
-
+  
   def create
     
     @article = current_user.articles.build(article_params)
-
+    binding.pry
     respond_to do |format|
       if @article.save
         format.html { redirect_to @article, notice: "Article was successfully created." }
@@ -60,7 +60,7 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :subject, :status)
+      params.require(:article).permit(:title, :subject, :body, :status)
     end
 
     def authorize_user!

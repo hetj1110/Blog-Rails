@@ -1,6 +1,7 @@
 <h1> <%= @article.title %> </h1>
+<p>Created by : <%= link_to @article.user.username, profile_path(@article.user),  class: "link-dark" %></p>
 <p> <%= @article.views %> Views</p>
-<h5> Created <%= time_tag @article.created_at, "data-local": 'time-ago' %> </h5>
+<h5> Created on : <%= time_tag @article.created_at, "data-local": 'time-ago' %> </h5>
 <p> <%= @article.subject %> </p>
 <p> <%= @article.body %> </p>
 
@@ -17,14 +18,10 @@
 <br>
 <%= link_to "Back", articles_path %>
 <br>
+<br>
 
-<h2>Comments</h2>
+<h4>Comments</h4>
 <%= link_to "View Comments only", article_comments_path(@article) %>
 <br><br>
 <%= render partial: 'comments/comment', collection: @article.comments %>
 <%= render partial: 'comments/form', locals: { comment: @article.comments.new } %>
-<%# <h3>Comments</h3> %>
-<%# <%= render @article.comments %>
-
-<%# <h3>Add Comments</h3> %>
-<%# <%= render 'comments/form' %>
