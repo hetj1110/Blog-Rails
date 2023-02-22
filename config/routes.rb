@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show]
 
   resources :articles do
-    resources :comments, only: [ :create, :edit, :update, :destroy]
+    resources :comments, only: [ :index, :create, :edit, :update, :destroy]
   end
 
   get '/comments/all_comments', to: 'comments#all_comments',as: 'all_comments'
