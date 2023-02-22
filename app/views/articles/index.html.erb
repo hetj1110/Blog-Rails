@@ -1,30 +1,58 @@
-<h3>Articles</h3>
-<% if @articles.exists? %>
-    Our blog has <%= @articles.where(status: 'public').count %> public articles and counting! 
-<% else %>
-    Our blog has no Articles so create any
-<% end %>
-<% if user_signed_in? %>
-    <ul>
-        <% @articles.each do |article| %>
-            <% unless article.archived? %>
-                <li>
-                    <%= link_to article.title, article %>
-                </li>
+<div class="container">
+    <h3>Articles</h3>
+    <% if user_signed_in? %>
+        <% if @articles.exists? %>
+            Our blog has <%= @articles.where(status: 'public').count %> public articles and counting! 
+        <% else %>
+            Our blog has no Articles so create any
+        <% end %><br><br>
+        <%= link_to "New Article", new_article_path %>
+        <table class="table mt-4">
+        <thead>
+            <tr>
+            <th scope="col">index</th>
+            <th scope="col">Article</th>
+            <th scope="col">Author</th>
+            <th scope="col">Views</th>
+            <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @articles.each_with_index do |article,index| %>
+            <%# unless article.archived? %>
+            <tr scope="row">
+                <td><%= index+1 %></td>
+                <td><%= link_to article.title , article%></td>
+                <td><%= article.user.username %></td>
+                <td><%= article.views %></td>
+                <td><%= article.status %></td>
+            </tr>
+            <%# end %>
             <% end %>
-        <% end %>
-    </ul>
-<% else %>
-    <ul>
-        <% @articles.each do |article| %>
+        </tbody>
+        </table>
+    <% else %>
+        <table class="table mt-4">
+        <thead>
+            <tr>
+            <th scope="col">index</th>
+            <th scope="col">Article</th>
+            <th scope="col">Author</th>
+            <th scope="col">Views</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @articles.each_with_index do |article,index| %>
             <% if article.public? %>
-                    <li>
-                        <%= link_to article.title, article %>
-                    </li>
+            <tr scope="row">
+                <td><%= index+1 %></td>
+                <td><%= link_to article.title , article%></td>
+                <td><%= article.user.username %></td>
+                <td><%= article.views %></td>
+            </tr>
             <% end %>
-        <% end %>
-    </ul>
-<% end %>
-
-<%= link_to "New Article", new_article_path %>
-
+            <% end %>
+        </tbody>
+        </table>
+    <% end %>
+</div>

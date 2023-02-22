@@ -1,6 +1,6 @@
 <div class="container">
     <%= form_with url: approving_comments_path(@comment), method: :patch do |form| %>
-        <h3> Unapproved comments </h3>
+        <h3> All Comments </h3>
 
         <table class="table">
         <thead>
@@ -8,6 +8,7 @@
             <th scope="col">index</th>
             <th scope="col">User</th>
             <th scope="col">Comment</th>
+            <th scope="col">Article</th>
             <th scope="col">Approve</th>
             </tr>
         </thead>
@@ -17,6 +18,7 @@
                 <td><%= index+1 %></td>
                 <td><%= comment.user.username %></td>
                 <td><%= comment.content %></td>
+                <td><%= comment.article.title %></td>
                 <td><div class="field">
                     <%= form.check_box "comments[comment #{comment.id}]", checked: comment.approved %>
                 </div></td>
@@ -25,7 +27,7 @@
         </tbody>
         </table>
         <div class="actions mt-3">
-            <%= form.submit "Approve", class: 'btn btn-dark' %>
+            <%= form.submit "Submit", class: 'btn btn-dark' %>
         </div>
     <%end%>
 </div>

@@ -29,7 +29,7 @@ class Ability
       end
     else
       can :read, Article, public: true
-      can :read, PublicDocument
+      # can :read, PublicDocument
       can :read, Comment, approved: true
     end
     

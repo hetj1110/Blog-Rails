@@ -4,11 +4,7 @@ class CommentsController < ApplicationController
     before_action :set_comment, only: [:show, :edit, :update, :destroy]
     before_action :authorize_user!, only: [:edit, :update, :destroy]
     before_action :authorize_approver!, only: [:all_comments, :approve_comments]
-  
-    def index
-      @comments = @article.comments
-    end
-    
+
     def all_comments
       @comments = Comment.all
     end
@@ -63,6 +59,7 @@ class CommentsController < ApplicationController
     end
   
     def destroy
+      @comment.articles.clear
       @comment.destroy
       redirect_to article_comments_path(@article)
     end

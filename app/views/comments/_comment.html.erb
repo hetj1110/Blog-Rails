@@ -1,11 +1,23 @@
-<div class="comment">
-  <% if comment.approved %>
-    <p><%= comment.content %> - <%= link_to comment.user.username, profile_path(comment.user),  class: "link-dark" %></p>
-    <p> Created <%= time_tag @article.created_at, "data-local": 'time-ago' %> </p>
-  <% end %>
-  <% if comment.user == current_user %>
-    <p><%= link_to 'Edit', edit_article_comment_path(comment.article, comment) %></p>
-    <p><%= link_to 'Delete', article_comment_path(comment.article, comment),
-                  method: :delete, data: { confirm: 'Are you sure?' } %></p>
-  <% end %>
-</div>
+<% if comment.approved %>
+  <div class="col-sm-6">
+    <div class="card m-2" style="width: 18rem;">
+      <div class="card-body">
+        <p class="card-text">
+          <div class="comment">
+            <p class="card-text"><%= comment.content %> - <%= link_to comment.user.username, profile_path(comment.user),  class: "link-dark" %></p>
+            <p class="card-text text-muted"> Created <%= time_tag @article.created_at, "data-local": 'time-ago' %> </p>
+          
+          </div>
+          </p>
+          <% if comment.user == current_user %>
+              <p><%= link_to 'Edit', edit_article_comment_path(comment.article, comment), class:"card-link" %> |
+              <%= link_to 'Delete', article_comment_path(comment.article, comment),
+                                    data: {
+                                      turbo_method: :delete,
+                                      turbo_confirm: "Are you sure?"
+                                    } , class:"card-link" %></p>
+          <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

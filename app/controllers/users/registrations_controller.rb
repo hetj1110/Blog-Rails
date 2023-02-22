@@ -71,9 +71,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def authorize_user!
-    unless @user == current_user
-    flash[:alert] = "You are not authorized to perform this action."
-    redirect_to article_path(@article)
+    if @user != current_user
+      flash[:alert] = "You are not authorized to perform this action."
+      redirect_to article_path(@article)
     end
+    
   end
 end
