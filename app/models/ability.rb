@@ -11,25 +11,46 @@ class Ability
     #   return unless user.admin?
     #   can :manage, :all
 
-    #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :all
-    #   end
+      # user ||= User.new # guest user (not logged in)
+      # if user.admin?
+      #   can :manage, :all
+      # else
+      #   can :read, :all
+      # end
 
     if user.present?
       can :manage, Article, user_id: user.id
+      # User can read public and private Articles
+      can :read, Article, status: [ 'public','private' ]
+      # User can read his own archived articles
+      can :read, Article, status: 'archived', user_id: user.id
+
       can :manage, Comment, user_id: user.id
-    
+      can :manage, Like, user_id: user.id
+      can :read, Article
+      cannot :read, Article do |article|
+        article.status == 'archived'
+      end
+      can :read, Comment, approved: false
+
       if user.admin?
         can :manage, :all
       elsif user.approver?
-        can :update, Comment, approved: false
+        cannot :create, Article
+        cannot :create, Like
+        can :read, Comment
+        cannot :create, Comment
+        can :update, Comment
+        can :destory, Comment, article: { user_id: !user.id }
+        can [ :all_comments, :approve_comments ], Comment
+        can :read, Article do |article|
+          article.status == 'archived'
+        end
       end
     else
-      can :read, Article, public: true
-      # can :read, PublicDocument
+      can :read, Article do |article|
+        article.status == 'public'
+      end
       can :read, Comment, approved: true
     end
     
@@ -52,5 +73,51 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
+
+     # if user.present?
+      
+    #   can :manage, Article, user_id: user.id
+    #   # User can read public and private Articles
+    #   can :read, Article, status: [ 'public','private' ]
+    #   # User can read his own archived articles
+    #   can :read, Article, status: 'archived', user_id: user.id
+
+      
+    #   can :manage, Comment, user_id: user.id
+    #   # cannot :create, Comment, article: { status: 'private', user_id: !user.id }
+    #   can :read, Comment
+    #   # User can destroy commets on his own article
+    #   # can :destory, Comment, article: { user_id: user.id }
+
+    #   can [ :all_comments, :approve_comments ], Comment
+      
+    #   can [:create, :destory], Like
+
+    #   # User cannot Create comment on private article
+    #   # can :create, Comment, article: { status: 'public' }
+
+    #   if user.admin?
+    #     can :manage, :all
+    #   elsif user.approver?
+        
+    #     cannot :create, Article
+    #     cannot :create, Like
+    #     # cannot [:create, :destory], Like
+    #     cannot :create, Comment
+    #     can :update, Comment
+    #     can :destory, Comment
+    #     can [ :all_comments, :approve_comments ], Comment
+    #     can :read, Article do |article|
+    #       article.status == 'archived'
+    #     end
+    #   end
+    # else
+    #   can :read, Comment, approved: true
+    #   can :read, Article do |article|
+    #     article.status == 'public'
+    #   end
+    # end
+
+
   end
 end

@@ -1,22 +1,24 @@
-<% if comment.approved %>
+<% if can? :read, comment %>
   <div class="col-sm-6">
     <div class="card m-2" style="width: 18rem;">
       <div class="card-body">
         <p class="card-text">
           <div class="comment">
             <p class="card-text"><%= comment.content %> - <%= link_to comment.user.username, profile_path(comment.user),  class: "link-dark" %></p>
-            <p class="card-text text-muted"> Created <%= time_tag @article.created_at, "data-local": 'time-ago' %> </p>
-          
+            <small><small class="card-text text-muted"> Created <%= time_tag @article.created_at, "data-local": 'time-ago' %> </small></small>
           </div>
           </p>
-          <% if comment.user == current_user %>
-              <p><%= link_to 'Edit', edit_article_comment_path(comment.article, comment), class:"card-link" %> |
+          
+              <p>
+              <% if can? :update, comment %>
+              <%= link_to 'Edit', edit_article_comment_path(comment.article, comment), class:"card-link" %> |
               <%= link_to 'Delete', article_comment_path(comment.article, comment),
                                     data: {
                                       turbo_method: :delete,
                                       turbo_confirm: "Are you sure?"
-                                    } , class:"card-link" %></p>
-          <% end %>
+                                    } , class:"card-link" %>
+              <% end %>
+              </p>
       </div>
     </div>
   </div>

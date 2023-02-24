@@ -44,8 +44,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     redirect_to profile_path(current_user)
   end
 
-
-
   protected
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -75,6 +73,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
       flash[:alert] = "You are not authorized to perform this action."
       redirect_to article_path(@article)
     end
-    
   end
 end

@@ -1,7 +1,9 @@
 class ArticlesController < ApplicationController
-    before_action :authenticate_user!, except: %i[ index show ]
-    before_action :set_articles, only: %i[ show edit update destroy ]
-    before_action :authorize_user!, only: [:edit, :update, :destroy]
+  load_and_authorize_resource  
+  before_action :authenticate_user!, except: %i[ index show ]
+  before_action :set_articles, only: %i[ show edit update destroy ]
+  # before_action :authorize_user!, only: [:edit, :update, :destroy]
+
 
   def index
     @articles = Article.all.order('created_at desc')

@@ -6,9 +6,11 @@
         <thead>
             <tr>
             <th scope="col">index</th>
-            <th scope="col">User</th>
             <th scope="col">Comment</th>
+            <th scope="col">Commenter</th>
             <th scope="col">Article</th>
+            <th scope="col">Author</th>
+            <th scope="col">Status</th>
             <th scope="col">Approve</th>
             </tr>
         </thead>
@@ -16,9 +18,11 @@
             <% @comments.each_with_index do |comment,index| %>
             <tr scope="row">
                 <td><%= index+1 %></td>
-                <td><%= comment.user.username %></td>
                 <td><%= comment.content %></td>
+                <td><%= comment.user.username %></td>
                 <td><%= comment.article.title %></td>
+                <td><%= comment.article.user.username %></td>
+                <td><%= comment.article.status %></td>
                 <td><div class="field">
                     <%= form.check_box "comments[comment #{comment.id}]", checked: comment.approved %>
                 </div></td>

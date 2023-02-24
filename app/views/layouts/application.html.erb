@@ -13,11 +13,14 @@
   </head>
 
   <body>
-    <%= render "shared/navbar" %>
-    <div class = 'container'>
-      <%= render "shared/errors" %>
+    <header>
+      <%= render "shared/navbar" %>
+      <div class="container mt-2">
+        <%= render "shared/errors" %>
+      </div>
+    </header>
+    <div class = 'container mt-3'>
       <%= yield %>
-
     </div>
   </body>
 </html>

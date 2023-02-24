@@ -14,9 +14,7 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show]
 
   resources :likes, only: [:create, :destroy]
-
-
-
+  
   resources :articles do
     resources :comments, only: [ :create, :edit, :update, :destroy]
   end

@@ -9,22 +9,26 @@
         </div>
         <div class="col-sm-6">
           <p class="text-muted"> Created on : <%= time_tag @article.created_at, "data-local": 'time-ago' %> </p>
-          <% if user_signed_in? && @article.user == current_user %>
-              <p><%= link_to "Edit", edit_article_path(@article) %> | 
-                <%= link_to "Destroy", article_path(@article), 
-                                  data: {
-                                  turbo_method: :delete,
-                                  turbo_confirm: "Are you sure?"
-                                  } %></p>
-          <% end %>
+            <% if can? :update, @article %>
+                <p><%= link_to "Edit", edit_article_path(@article) %> | 
+            <% end %>
+            <% if can? :destroy, @article %>
+                  <%= link_to "Destroy", article_path(@article), 
+                                    data: {
+                                    turbo_method: :delete,
+                                    turbo_confirm: "Are you sure?"
+                                    } %></p>
+            <% end %>
           <div>
               <%= @article.likes.count %> likes
               <% if user_signed_in? %>
+                <% if can? :create, Like %>
                 <% like = current_user.likes.find_by(article: @article)  %>
-                <% if like.nil? %>
-                  <%= button_to "Like", likes_path, params: { like: { article_id: @article.id } }, method: :post, class: "btn btn-dark" %>
-                <% else %>
-                  <%= button_to "Unlike", like_path(like),  method: :delete, class: "btn btn-dark" %>
+                  <% if like.nil? %>
+                      <%= button_to "Like", likes_path, params: { like: { article_id: @article.id } }, method: :post, class: "btn btn-dark" %>
+                  <% else %>
+                      <%= button_to "Unlike", like_path(like),  method: :delete, class: "btn btn-dark" %>
+                  <% end %>
                 <% end %>
               <% end %>
 
@@ -38,11 +42,15 @@
           <p> <%= @article.subject %> </p>
         </div>
       </div>
+      <% if @article.comments.exists? %>
       <h5>Comments</h5>
+      <% end %>
       <div class="row">
         <%= render partial: 'comments/comment', collection: @article.comments %>
       </div>
-      <%= render partial: 'comments/form', locals: { comment: @article.comments.new } %>
+      <% if can? :create, Comment %>
+        <%= render partial: 'comments/form', locals: { comment: @article.comments.new } %>
+      <% end %>
     </div>
   </div>
 </div>
