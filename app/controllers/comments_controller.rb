@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
           comment.update(approved: false)
         end
       end
-      flash[:alert] = "Operation performed successfully"
+      flash[:notice] = "Operation performed successfully"
       redirect_to all_comments_path
     end
   
@@ -88,7 +88,7 @@ class CommentsController < ApplicationController
 
     def authorize_user!
       unless @comment.user == current_user
-        flash[:alert] = "You are not authorized to perform this action."
+        flash[:notice] = "You are not authorized to perform this action."
         redirect_to article_comments_path(@article)
       end
     end

@@ -91,3 +91,5 @@ gem 'city-state'
 gem 'pry', '~> 0.13.1'
 
 
+gem 'kaminari'
+

@@ -1,25 +1,33 @@
 <%= form_with model: article do |form| %>
-    <div>
-        <%= form.label :title %><br>
-        <%= form.text_field :title %>
+    <div class="card  mb-5">
+        <div class="card-header">
+             <div class="row  container-fluid">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <%= form.label :title %><br>
+                        <%= form.text_field :title, class:"form-control" %>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <%= form.label :status %><br>
+                        <%= form.select :status, ['public', 'private', 'archived'], selected: 'public',  class:"btn btn-dark dropdown-toggle" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p>
+                 <div class="form-group">
+                    <%= form.label :subject %><br>
+                    <%= form.text_area :subject, class:"form-control", rows: "15"  %>
+                </div>
+            </p>
+            <div class="actions mb-2 mt-2">
+                <%= form.submit class:"btn btn-dark btn-lg", data: { turbo: false }  %>
+            </div>
+        </div>
     </div>
 
-    <div>
-        <%= form.label :subject %><br>
-        <%= form.text_area :subject  %>
-    </div>
-
-    <div class = field>
-        <%# <%= form.label :body %><br> %>
-        <%# <%= form.rich_text_area :body %> %>
-    </div>
-
-    <div>
-        <%= form.label :status %><br>
-        <%= form.select :status, ['public', 'private', 'archived'], selected: 'public' %>
-    </div>
-
-    <div>
-        <%= form.submit %>
-    </div>
 <% end %>

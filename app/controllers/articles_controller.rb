@@ -6,7 +6,13 @@ class ArticlesController < ApplicationController
 
 
   def index
-    @articles = Article.all.order('created_at desc')
+    # if current_user
+      # @articles = Article.order('created_at desc').select{|article| can?(:read, article)}.page(params[:page])
+      # @user_articles = Article.order('created_at desc').find_by(user_id: current_user.id)
+    # else
+      @articles = Article.order('created_at desc').select{|article| can?(:read, article)}
+      @articles = Kaminari.paginate_array(@articles).page(params[:page]).per(10)
+    # end
   end
 
   def show
@@ -66,7 +72,7 @@ class ArticlesController < ApplicationController
 
     def authorize_user!
       unless @article.user == current_user
-      flash[:alert] = "You are not authorized to perform this action."
+      flash[:notice] = "You are not authorized to perform this action."
       redirect_to article_path(@article)
       end
     end

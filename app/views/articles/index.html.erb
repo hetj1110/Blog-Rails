@@ -1,26 +1,23 @@
 <div class="container">
     <h3>Articles</h3>
-        <% if @articles.exists? %>
-            Our blog has <%#= @articles.where(status: 'public').count %><%= @articles.count %> articles and counting! 
-        <% else %>
-            Our blog has no Articles so create any
-        <% end %><br><br>
+            Our blog has <%= Article.count %> articles and counting! 
+    <%= paginate @articles, class:"pagination" %>
+<br><br>
         <% if can? :create, Article %>
             <%= link_to "New Article", new_article_path %>
         <% end %>
         <table class="table mt-4">
         <thead>
             <tr>
-            <th scope="col">Article</th>
-            <th scope="col">Author</th>
-            <th scope="col">Views</th>
-            <th scope="col">Status</th>
-            <th scope="col">Likes</th>
+                <th scope="col">Article</th>
+                <th scope="col">Author</th>
+                <th scope="col">Views</th>
+                <th scope="col">Status</th>
+                <th scope="col">Likes</th>
             </tr>
         </thead>
         <tbody>
             <% @articles.each_with_index do |article,index| %>
-                <% if can? :read, article %>
                 <tr scope="row">
                     <td><%= link_to article.title , article%></td>
                     <td><%= article.user.username %></td>
@@ -28,9 +25,9 @@
                     <td><%= article.status %></td>
                     <td><%= article.likes.count %></td>
                 </tr>
-                <% end %>
             <% end %>
         </tbody>
         </table>
-   
+
+        <%= paginate @articles %>
 </div>
