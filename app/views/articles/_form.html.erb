@@ -24,6 +24,12 @@
                     <%= form.text_area :subject, class:"form-control", rows: "15"  %>
                 </div>
             </p>
+            <p>
+                 <div class="form-group">
+                    <%= form.label :body %><br>
+                    <%= form.rich_text_area :body, class:"form-control", rows: "15"  %>
+                </div>
+            </p>
             <div class="actions mb-2 mt-2">
                 <%= form.submit class:"btn btn-dark btn-lg", data: { turbo: false }  %>
             </div>

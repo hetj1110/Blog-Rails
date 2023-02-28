@@ -1,17 +1,16 @@
 class CommentsController < ApplicationController
     load_and_authorize_resource
     before_action :authenticate_user!, except: [:index, :show]
-    before_action :set_article, except: [:all_comments, :approve_comments]
+    before_action :set_article, except: [:all_comments, :approve_comments ]
     before_action :set_comment, only: [:show, :edit, :update, :destroy]
     # before_action :authorize_user!, only: [:edit, :update, :destroy]
     # before_action :authorize_approver!, only: [:all_comments, :approve_comments]
 
     def all_comments
-      if current_user.role != 'user'
-        @comments = Comment.all.order('created_at desc')
+      if current_user.role == 'user'
+        @comments = Comment.where(article_id: current_user.articles.pluck(:id)).order('created_at desc')
       else
-        @articles = current_user.articles.order('created_at desc').find_by(params[:id])
-        @comments = @articles.comments
+        @comments = Comment.all.order('created_at desc')
       end
     end
     
@@ -54,7 +53,6 @@ class CommentsController < ApplicationController
     end
   
     def edit
-      @comment = @article.comments.build
     end
   
     def update
@@ -68,7 +66,13 @@ class CommentsController < ApplicationController
     def destroy
       # @comment.articles.clear
       @comment.destroy
-      redirect_to article_comments_path(@article)
+
+      respond_to do |format|
+        format.html { redirect_to article_path(@article), notice: "Comment was successfully destroyed." }
+        format.json { head :no_content }
+      end
+
+      
     end
   
     private
@@ -89,7 +93,7 @@ class CommentsController < ApplicationController
     def authorize_user!
       unless @comment.user == current_user
         flash[:notice] = "You are not authorized to perform this action."
-        redirect_to article_comments_path(@article)
+        redirect_to article_path(@article)
       end
     end
 

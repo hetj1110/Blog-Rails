@@ -6,17 +6,17 @@ class ArticlesController < ApplicationController
 
 
   def index
-    # if current_user
-      # @articles = Article.order('created_at desc').select{|article| can?(:read, article)}.page(params[:page])
-      # @user_articles = Article.order('created_at desc').find_by(user_id: current_user.id)
-    # else
       @articles = Article.order('created_at desc').select{|article| can?(:read, article)}
-      @articles = Kaminari.paginate_array(@articles).page(params[:page]).per(10)
-    # end
+      @articles = Kaminari.paginate_array(@articles).page(params[:page]).per(8)
+  end
+
+  def user_articles
+    @articles = current_user.articles.order('created_at desc').page(params[:page]).per(5)
   end
 
   def show
     @article.update( views: @article.views + 1 )
+    @like_exists = Like.where(article: @article, user: current_user) == [] ? false : true
   end
 
   def new
@@ -67,7 +67,7 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :subject, :status)
+      params.require(:article).permit(:title, :subject, :status, :body)
     end
 
     def authorize_user!

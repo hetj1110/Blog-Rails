@@ -11,15 +11,14 @@
           
               <p>
               <% if can? :update, comment %>
-              <%= link_to 'Edit', edit_article_comment_path(comment.article, comment), class:"card-link" %> |
-              <%= link_to 'Delete', article_comment_path(comment.article, comment),
-                                    data: {
-                                      turbo_method: :delete,
-                                      turbo_confirm: "Are you sure?"
-                                    } , class:"card-link" %>
+              <%= link_to 'Edit', edit_article_comment_path(@article, comment), class:"card-link" %> 
+              <% end %>
+              <% if can? :destroy, comment %>
+              <%= button_to "Destroy", article_comment_path(@article, comment),data: { turbo: :false, turbo_confirm: "Are you sure?"}, method: :delete, class: "btn btn-dark" %>
               <% end %>
               </p>
       </div>
     </div>
   </div>
 <% end %>
+  

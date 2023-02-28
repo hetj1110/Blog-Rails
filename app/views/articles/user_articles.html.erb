@@ -1,0 +1,31 @@
+<div class="container mb-5">
+    <h3><%= current_user.username %>Articles</h3>
+<br><br>
+        <% if can? :create, Article %>
+            <%= link_to "New Article", new_article_path %>
+        <% end %>
+        <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">Article</th>
+                <th scope="col">Author</th>
+                <th scope="col">Views</th>
+                <th scope="col">Status</th>
+                <th scope="col">Likes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @articles.each do |article| %>
+                <tr scope="row">
+                    <td><%= link_to article.title , article%></td>
+                    <td><%= article.user.username %></td>
+                    <td><%= article.views %></td>
+                    <td><%= article.status %></td>
+                    <td><%= article.likes.count %></td>
+                </tr>
+            <% end %>
+        </tbody>
+        </table>
+
+        <%= paginate @articles %>
+</div>

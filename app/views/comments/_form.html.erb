@@ -16,7 +16,7 @@
     <%= form.text_area :content, class: 'form-control', rows: 4 %>
   </div>
 
-  <div class="actions mt-3 mb-5">
-    <%= form.submit class: 'btn btn-dark' %>
+  <div class="actions mb-2 mt-2">
+    <%= form.submit class:"btn btn-dark btn-lg", data: { turbo: false }  %>
   </div>
 <% end %>

@@ -16,17 +16,19 @@
         </thead>
         <tbody>
             <% @comments.each_with_index do |comment,index| %>
-            <tr scope="row">
-                <td><%= index+1 %></td>
-                <td><%= comment.content %></td>
-                <td><%= comment.user.username %></td>
-                <td><%= comment.article.title %></td>
-                <td><%= comment.article.user.username %></td>
-                <td><%= comment.article.status %></td>
-                <td><div class="field">
-                    <%= form.check_box "comments[comment #{comment.id}]", checked: comment.approved %>
-                </div></td>
-            </tr>
+            <%# if can? [ :all_comments, :approve_comments ], comment %>
+                <tr scope="row">
+                    <td><%= index+1 %></td>
+                    <td><%= comment.content %></td>
+                    <td><%= comment.user.username %></td>
+                    <td><%= comment.article.title %></td>
+                    <td><%= comment.article.user.username %></td>
+                    <td><%= comment.article.status %></td>
+                    <td><div class="field">
+                        <%= form.check_box "comments[comment #{comment.id}]", checked: comment.approved %>
+                    </div></td>
+                </tr>
+            <%# end %>
             <% end %>
         </tbody>
         </table>

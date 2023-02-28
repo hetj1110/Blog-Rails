@@ -6,31 +6,31 @@
           <h4><%= @article.title %></h4>
           <p>Created by : <%= link_to @article.user.username, profile_path(@article.user),  class: "link-dark" %></p>
           <p> <%= @article.views %> Views</p>
+          <% if can? :update, @article %>
+                <p><%= link_to "Edit", edit_article_path(@article) %></p> 
+            <% end %>
         </div>
         <div class="col-sm-6">
           <p class="text-muted"> Created on : <%= time_tag @article.created_at, "data-local": 'time-ago' %> </p>
-            <% if can? :update, @article %>
-                <p><%= link_to "Edit", edit_article_path(@article) %> | 
-            <% end %>
+
             <% if can? :destroy, @article %>
-                  <%= link_to "Destroy", article_path(@article), 
-                                    data: {
-                                    turbo_method: :delete,
-                                    turbo_confirm: "Are you sure?"
-                                    } %></p>
+                  <%= button_to "Destroy", article_path(@article),data: { turbo: :false, turbo_confirm: "Are you sure?"}, method: :delete, class: "btn btn-dark" %>
             <% end %>
           <div>
               <%= @article.likes.count %> likes
-              <% if user_signed_in? %>
-                <% if can? :create, Like %>
-                <% like = current_user.likes.find_by(article: @article)  %>
-                  <% if like.nil? %>
-                      <%= button_to "Like", likes_path, params: { like: { article_id: @article.id } }, method: :post, class: "btn btn-dark" %>
-                  <% else %>
-                      <%= button_to "Unlike", like_path(like),  method: :delete, class: "btn btn-dark" %>
+                <% if user_signed_in? %>
+                  <%# if can? :update, Like %>
+                    <%#= link_to like_text, likes_update_path(article: @article), id: "like_link", class: "btn btn-dark", remote: true, method: :patch %>
+                  <%# end %>
+                  <% if can? :create, Like %>
+                  <% like = current_user.likes.find_by(article: @article)  %>
+                    <% if like.nil? %>
+                        <%= button_to "Like", likes_path, params: { like: { article_id: @article.id } }, method: :post, class: "btn btn-dark" %>
+                    <% else %>
+                        <%= button_to "Unlike", like_path(like),  method: :delete, class: "btn btn-dark" %>
+                    <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
 
           </div>
         </div>

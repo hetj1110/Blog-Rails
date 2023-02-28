@@ -14,10 +14,16 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show]
 
   resources :likes, only: [:create, :destroy]
+  get 'likes/update'
   
   resources :articles do
+    collection do
+      get 'user_articles'
+    end
     resources :comments, only: [ :create, :edit, :update, :destroy]
   end
+
+  get '/articles/user_articles', to: 'articles#user_articles'
 
   get '/comments/all_comments', to: 'comments#all_comments',as: 'all_comments'
   patch '/comments/approve_comments', to: 'comments#approve_comments', as: 'approving_comments'
@@ -30,4 +36,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  # To handle Routing Error
+  # match '*unmatched', to: 'application#not_found_method', via: :all
+
 end
