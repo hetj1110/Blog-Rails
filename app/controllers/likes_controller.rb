@@ -1,10 +1,25 @@
 class LikesController < ApplicationController
-    # load_and_authorize_resource
+    load_and_authorize_resource
     before_action :authenticate_user!
     
+    def update
+       
+        like = Like.where(article: Article.find(params[:article]), user: current_user)
+        if like == []
+            Like.create(article: Article.find(params[:article]), user: current_user)
+            @like_exists = true
+        else
+            like.destroy_all
+            @like_exists = false
+        end
+        respond_to do |format|
+            format.html {  }
+            format.js { }
+        end
+    end
+
     def create
         @like = current_user.likes.build(like_params)
-        # authorize! :create, Like
         if !@like.save
           flash[:notice] = "You have already liked this Article"
         end
@@ -13,7 +28,6 @@ class LikesController < ApplicationController
 
     def destroy
         @like = current_user.likes.find(params[:id])
-        # authorize! :destroy, Like
         @like.destroy
 
         redirect_to @like.article
@@ -24,4 +38,5 @@ class LikesController < ApplicationController
     def like_params
         params.require(:like).permit(:article_id)
     end
+    
 end
