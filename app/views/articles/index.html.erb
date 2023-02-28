@@ -1,7 +1,6 @@
-<div class="container">
+<div class="container mb-5">
     <h3>Articles</h3>
             Our blog has <%= Article.count %> articles and counting! 
-    <%= paginate @articles, class:"pagination" %>
 <br><br>
         <% if can? :create, Article %>
             <%= link_to "New Article", new_article_path %>

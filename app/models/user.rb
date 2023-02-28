@@ -2,9 +2,12 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
 
+  extend FriendlyId
+
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy#through: :articles
   has_many :likes, dependent: :destroy
+
 
   devise :database_authenticatable, :registerable,:recoverable, :rememberable, :validatable,
          :confirmable,:trackable, authentication_keys: [:login], reset_password_keys: [:login]        
@@ -13,6 +16,12 @@ class User < ApplicationRecord
        
   def login
     @login || self.username || self.email
+  end
+
+  friendly_id :username, use: %i[slugged history finders]
+
+  def should_generate_new_friendly_id?
+    username_changed? || slug.blank?
   end
               
   has_one_attached :avatar  

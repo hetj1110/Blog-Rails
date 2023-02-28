@@ -57,6 +57,9 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
+  #  Debugging
+  gem 'pry', '~> 0.13.1'
+
   # For Email 
   gem "letter_opener"
 
@@ -88,8 +91,11 @@ gem 'cssbundling-rails'
 gem 'city-state'
 
 
-gem 'pry', '~> 0.13.1'
-
-
+#  Pagination
 gem 'kaminari'
 
+# Jquery gem for Ajex
+gem 'jquery-rails'
+
+# For Link make User fridly
+gem 'friendly_id', '~> 5.4.0'
