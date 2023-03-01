@@ -8,9 +8,16 @@ class CommentsController < ApplicationController
 
     def all_comments
       if current_user.role == 'user'
-        @comments = Comment.where(article_id: current_user.articles.pluck(:id)).order('created_at desc')
+        @comments = Comment.where(article_id: current_user.articles.pluck(:id)).order('created_at desc').search(params[:search])
       else
-        @comments = Comment.all.order('created_at desc')
+        @comments = Comment.all.order('created_at desc').search(params[:search])
+      end
+      
+      if @comments.present?
+        @comments = Kaminari.paginate_array(@comments).page(params[:page]).per(8)
+      else
+        flash[:notice] = "No Result found"
+        redirect_to all_comments_path
       end
     end
     
@@ -90,18 +97,18 @@ class CommentsController < ApplicationController
       params.require(:comment).permit(:content)
     end
 
-    def authorize_user!
-      unless @comment.user == current_user
-        flash[:notice] = "You are not authorized to perform this action."
-        redirect_to article_path(@article)
-      end
-    end
+    # def authorize_user!
+    #   unless @comment.user == current_user
+    #     flash[:notice] = "You are not authorized to perform this action."
+    #     redirect_to article_path(@article)
+    #   end
+    # end
 
-    def authorize_approver!
-      unless current_user && current_user.approver?
-        redirect_to root_path, alert: "You are not authorized to access this page."
-      end
-    end
+    # def authorize_approver!
+    #   unless current_user && current_user.approver?
+    #     redirect_to root_path, alert: "You are not authorized to access this page."
+    #   end
+    # end
 
 end
   

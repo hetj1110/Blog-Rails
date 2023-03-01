@@ -16,6 +16,7 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '8957dd30110c240bbc9b707d01158936be8acbcb00e8bd38dfb49a5cad78f51daf01f7aa72e64137412fb8777770b7a9c27bd1bc15995092c3aa028a9c0dc147'
 
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.

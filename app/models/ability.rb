@@ -43,6 +43,8 @@ class Ability
       # User can read public and private Articles
       can :read, Article, status: [ 'public','private' ]
 
+      can :search, Article
+
       # User can read his own archived articles
       can :read, Article, status: 'archived', user_id: user.id
 
@@ -85,6 +87,8 @@ class Ability
       can :read, Article do |article|
         article.status == 'public'
       end
+      can :read, Comment, approve: true
+      can :search, Article
     end
 
 

@@ -31,7 +31,9 @@ class User < ApplicationRecord
   validates :first_name,:last_name, :date_of_birth, presence: true
   validates :first_name,:last_name, length: {minimum:2, maximum:20}
   validates :first_name,:last_name, format: { with:/\A[a-zA-Z]+\z/, message: "Only letters are allowed" }
-
+  validates :contact_number , presence: true, length: {minimum: 10, maximum: 10}
+  validates :address , presence: true, length: {minimum: 5 , maximum:300}
+  
   def fullname
     "#{first_name} #{last_name}"
   end
@@ -89,7 +91,6 @@ class User < ApplicationRecord
   def after_confirmation
     WelcomeMailer.send_greetings(self).deliver_now
   end
-
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup

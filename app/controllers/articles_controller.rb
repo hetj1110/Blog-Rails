@@ -1,13 +1,18 @@
 class ArticlesController < ApplicationController
   load_and_authorize_resource  
-  before_action :authenticate_user!, except: %i[ index show ]
+  before_action :authenticate_user!, except: %i[ index show search ]
   before_action :set_articles, only: %i[ show edit update destroy ]
   # before_action :authorize_user!, only: [:edit, :update, :destroy]
 
 
   def index
-      @articles = Article.order('created_at desc').select{|article| can?(:read, article)}
-      @articles = Kaminari.paginate_array(@articles).page(params[:page]).per(8)
+      @articles = Article.order('created_at desc').search(params[:search]).select{|article| can?(:read, article)}
+      if @articles.present?
+        @articles = Kaminari.paginate_array(@articles).page(params[:page]).per(8)
+      else
+        flash[:notice] = "No Result found"
+        redirect_to root_path
+      end
   end
 
   def user_articles
@@ -61,6 +66,7 @@ class ArticlesController < ApplicationController
     end
   end
 
+
   private
     def set_articles
       @article = Article.find(params[:id])
@@ -70,11 +76,11 @@ class ArticlesController < ApplicationController
       params.require(:article).permit(:title, :subject, :status, :body)
     end
 
-    def authorize_user!
-      unless @article.user == current_user
-      flash[:notice] = "You are not authorized to perform this action."
-      redirect_to article_path(@article)
-      end
-    end
+    # def authorize_user!
+    #   unless @article.user == current_user
+    #   flash[:notice] = "You are not authorized to perform this action."
+    #   redirect_to article_path(@article)
+    #   end
+    # end
 
 end

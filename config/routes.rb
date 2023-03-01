@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   resources :likes, only: [:create, :destroy]
   get 'likes/update'
+
+  get '/search', to: "articles#search"
   
   resources :articles do
     collection do

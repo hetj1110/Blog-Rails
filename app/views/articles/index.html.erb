@@ -1,6 +1,12 @@
+<div class="container mt-2 mb-3">
+    <%= form_tag articles_path, method: :get do %>
+        <%= search_field_tag :search , params[:search], class:"form-control", placeholder: "Search Here" %>
+        <%= submit_tag "Search", class:"btn btn-dark mt-2" %>
+    <% end %>
+</div>
 <div class="container mb-5">
     <h3>Articles</h3>
-            Our blog has <%= Article.count %> articles and counting! 
+            There are <%= @articles.count %> articles On the page 
 <br><br>
         <% if can? :create, Article %>
             <%= link_to "New Article", new_article_path %>

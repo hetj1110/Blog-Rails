@@ -1,3 +1,9 @@
+<div class="container mt-2 mb-3">
+    <%= form_tag all_comments_path, method: :get do %>
+        <%= search_field_tag :search , params[:search], class:"form-control", placeholder: "Search Here" %>
+        <%= submit_tag "Search", class:"btn btn-dark mt-2" %>
+    <% end %>
+</div>
 <div class="container">
     <%= form_with url: approving_comments_path(@comment), method: :patch do |form| %>
         <h3> All Comments </h3>
@@ -16,19 +22,17 @@
         </thead>
         <tbody>
             <% @comments.each_with_index do |comment,index| %>
-            <%# if can? [ :all_comments, :approve_comments ], comment %>
                 <tr scope="row">
                     <td><%= index+1 %></td>
-                    <td><%= comment.content %></td>
-                    <td><%= comment.user.username %></td>
-                    <td><%= comment.article.title %></td>
-                    <td><%= comment.article.user.username %></td>
-                    <td><%= comment.article.status %></td>
+                    <td><%= comment.content.truncate(20) %></td>
+                    <td><%=link_to comment.user.username, profile_path(comment.user) %></td>
+                    <td><%=link_to comment.article.title, article_path(comment.article_id) %></td>
+                    <td><%=link_to comment.article.user.username, profile_path(comment.article.user_id) %></td>
+                    <td><%= comment.article.status  %></td>
                     <td><div class="field">
                         <%= form.check_box "comments[comment #{comment.id}]", checked: comment.approved %>
                     </div></td>
                 </tr>
-            <%# end %>
             <% end %>
         </tbody>
         </table>
@@ -36,4 +40,8 @@
             <%= form.submit "Submit", class: 'btn btn-dark' %>
         </div>
     <%end%>
+
+        <div class="container mt-3 mb-3">
+            <%= paginate @comments %>
+        </div>
 </div>
