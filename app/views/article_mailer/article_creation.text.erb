@@ -1,0 +1,9 @@
+New article created
+Hello <%= @article.user.username %>,
+
+Your new article <%= @article.title %> has been created.
+
+You can view your article by clicking on the link below:
+<%= link_to @article.title, article_url(@article) %>
+
+Thank you for using our blog application.

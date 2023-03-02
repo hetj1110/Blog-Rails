@@ -1,0 +1,9 @@
+<h1>New article created</h1>
+<p>Hello <%= @article.user.username %>,</p>
+
+<p>Your new article <%= @article.title %> has been created.</p>
+
+<p>You can view your article by clicking on the link below:</p>
+<p><%= link_to @article.title, article_url(@article) %></p>
+
+<p>Thank you for using our blog application.</p>

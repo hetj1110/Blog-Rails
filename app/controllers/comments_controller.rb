@@ -53,6 +53,7 @@ class CommentsController < ApplicationController
       @comment = @article.comments.build(comment_params)
       @comment.user = current_user
       if @comment.save
+        CommentMailer.comment_creation(@comment).deliver_now
         redirect_to article_path(@article)
       else
         render :new

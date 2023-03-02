@@ -1,0 +1,9 @@
+<h1>Comment has created on your article</h1>
+<p>Hello <%= @comment.article.user.username %>,</p>
+
+<p><%= @comment.user.username %> has commenmted on yout article.</p>
+
+<p>You can view your article by clicking on the link below:</p>
+<p><%= link_to @comment.content.truncate(10), article_url(@comment.article) %></p>
+
+<p>Thank you for using our blog application.</p>

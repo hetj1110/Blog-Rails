@@ -3,7 +3,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
-  before_action :authorize_user!, only: [:edit, :update, :delete_avatar, :destory]
+  # before_action :authorize_user!, only: [:edit, :update, :delete_avatar, :destory]
 
   # GET /resource/sign_up
   # def new
@@ -68,10 +68,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     confirmation_panding_path
   end
 
-  def authorize_user!
-    if @user != current_user
-      flash[:notice] = "You are not authorized to perform this action."
-      redirect_to article_path(@article)
-    end
-  end
+  # def authorize_user!
+  #   if @user != current_user
+  #     flash[:notice] = "You are not authorized to perform this action."
+  #     redirect_to article_path(@article)
+  #   end
+  # end
 end

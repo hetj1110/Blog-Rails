@@ -1,0 +1,9 @@
+Comment has created on your article
+Hello <%= @comment.article.user.username %>,
+
+<%= @comment.user.username %> has commenmted on yout article.
+
+You can view your article by clicking on the link below:
+<%= link_to @comment.content.truncate(10), article_url(@comment.article) %>
+
+Thank you for using our blog application.
