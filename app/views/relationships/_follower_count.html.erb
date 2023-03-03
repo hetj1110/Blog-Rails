@@ -1,0 +1,3 @@
+<%# turbo_frame_tag "#{@user.id}-follower-count" do %>
+  <%= link_to "Followers : #{ user.followers.count }", profile_followers_path(profile_id: user.id), class: "link-dark" %> &nbsp;&nbsp;&nbsp;&nbsp; <%= link_to "Following : #{ user.following.count }", profile_following_path(profile_id: user.id), class: "link-dark" %>
+  <%# end %>
