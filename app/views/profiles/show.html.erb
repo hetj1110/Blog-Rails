@@ -5,10 +5,17 @@
             <div class="col-lg-6">
                 <div class="about-text go-to">
                     <h3 class="dark-color"><%= @user.fullname %></h3>
-                    <% if @user == current_user %>
+                    <% if user_signed_in? && @user == current_user %>
                     <h6 ><%= link_to 'Edit Profile', edit_user_registration_path, class: "theme-color lead" %></h6>
                     <% end %>
-                    <%# <p>I <mark>design and develop</mark> services for customers of all sizes, specializing in creating stylish, modern websites, web services and online stores. My passion is to design digital user experiences through the bold interface and meaningful interactions.</p> %>
+                    <h6><%#= link_to "Followers : #{ @user.followers.count }", profile_followers_path(@user), class: "link-dark" %> &nbsp;&nbsp;&nbsp;&nbsp; <%#= link_to "Following : #{ @user.following.count }", profile_following_path(@user), class: "link-dark" %> </h6>
+                    <% if user_signed_in? && @user != current_user %>
+                        <% if current_user.following?(@user) %>
+                            <%= button_to "Unfollow", unfollow_user_path(user_id: @user.id), method: :delete, class: "btn btn-dark" %>
+                        <% else %>
+                            <%= button_to "Follow", follow_user_path(user_id: @user.id), method: :post, class: "btn btn-primary" %>
+                        <% end %>
+                    <% end %>
                     <div class="row about-list">
                         <div class="col-md-6">
                             <div class="media">

@@ -9,6 +9,25 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
 
 
+  has_many :active_relationships, foreign_key: "follower_id",class_name: 'Relationship' ,dependent: :destroy
+  has_many :passive_relationships, foreign_key: "followee_id",class_name: 'Relationship' ,dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followee
+  has_many :followers,through: :passive_relationships, source: :follower
+
+  def follow(user)
+    active_relationships.create(followee_id: user.id)
+  end
+  
+  def unfollow(user)
+    active_relationships.find_by(followee_id: user.id).destroy
+  end
+
+  def following?(user)
+    following.include?(user)
+  end
+
+
+
   devise :database_authenticatable, :registerable,:recoverable, :rememberable, :validatable,
          :confirmable,:trackable, authentication_keys: [:login], reset_password_keys: [:login]        
          

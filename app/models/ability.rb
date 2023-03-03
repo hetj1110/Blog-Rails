@@ -87,7 +87,7 @@ class Ability
       can :read, Article do |article|
         article.status == 'public'
       end
-      can :read, Comment, approve: true
+      can :read, Comment, approved: true
       can :search, Article
     end
 
