@@ -16,6 +16,8 @@ class ArticlesController < ApplicationController
   end
 
   def user_articles
+    # @user = User.find_by(params[:user_id])
+    # @articles = @user.articles.order('created_at desc').page(params[:page]).per(5)
     @articles = current_user.articles.order('created_at desc').page(params[:page]).per(5)
   end
 

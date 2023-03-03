@@ -1,24 +1,25 @@
 class ProfilesController < ApplicationController
-  # load_and_authorize_resource
   before_action :authenticate_user!
-  # before_action :set_user, only: [:follower_list, :following_list]
+  before_action :set_user, only: [:follower_list, :following_list]
 
   def show
     @user = User.find(params[:id])
   end
 
-  # def follower_list
-  #   @followers = @user.followers
-  # end
+  def follower_list
+    @followers = @user.followers
+    # binding.pry
+  end
 
-  # def following_list
-  #   # binding.pry
-  #   @following = @user.following
-  # end
+  def following_list
+    @following = @user.following
+    # binding.pry
+  end
 
-  # private
+  private
 
-  # def set_user
-  #   @user = User.find(params[:user_id])
-  # end
+  def set_user
+    @user = User.find(params[:profile_id])
+    # binding.pry
+  end
 end

@@ -8,7 +8,7 @@
                     <% if user_signed_in? && @user == current_user %>
                     <h6 ><%= link_to 'Edit Profile', edit_user_registration_path, class: "theme-color lead" %></h6>
                     <% end %>
-                    <h6><%#= link_to "Followers : #{ @user.followers.count }", profile_followers_path(@user), class: "link-dark" %> &nbsp;&nbsp;&nbsp;&nbsp; <%#= link_to "Following : #{ @user.following.count }", profile_following_path(@user), class: "link-dark" %> </h6>
+                    <h6><%= link_to "Following : #{ @user.following.count }", profile_following_path(@user), class: "link-dark" %> &nbsp;&nbsp;&nbsp;&nbsp; <%= link_to "Followers : #{ @user.followers.count }", profile_followers_path(@user), class: "link-dark" %> </h6>
                     <% if user_signed_in? && @user != current_user %>
                         <% if current_user.following?(@user) %>
                             <%= button_to "Unfollow", unfollow_user_path(user_id: @user.id), method: :delete, class: "btn btn-dark" %>
@@ -18,6 +18,11 @@
                     <% end %>
                     <div class="row about-list">
                         <div class="col-md-6">
+                            <div class="media">
+                                <label>Articles</label>
+                                <p><%= @user.articles.count %></p>
+                            </div>
+
                             <div class="media">
                                 <label>E-mail</label>
                                 <p> <%= @user.email %> </p>
@@ -37,9 +42,15 @@
                                 <label>Contect Number</label>
                                 <p><%= @user.contact_number %></p>
                             </div>
+
                             
                         </div>
                         <div class="col-md-6">
+                            <div class="media">
+                                <label>Comments</label>
+                                <p><%= @user.comments.count %></p>
+                            </div>
+
                             <div class="media">
                                 <label>Username</label>
                                 <p> <%= @user.username %></p>
@@ -59,6 +70,7 @@
                                 <label>Gender</label>
                                 <p><%= @user.gender%></p>
                             </div>
+
                         </div>
                     </div>
                 </div>

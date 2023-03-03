@@ -11,10 +11,10 @@ Rails.application.routes.draw do
     delete '/users/:id/delete_avatar', to: 'users/registrations#delete_avatar', as: 'delete_user_avatar'
   end
 
-  resources :profiles, only: [:show] #do
-  #   get '/follower_list', to: 'profiles#follower_list', as: "followers"
-  #   get '/following_list', to: 'profiles#following_list', as: "following"
-  # end
+  resources :profiles, only: [:show] do
+    get '/follower_list', to: 'profiles#follower_list', as: "followers"
+    get '/following_list', to: 'profiles#following_list', as: "following"
+  end
 
   post 'relationships/create', to: 'relationships#create', as: "follow_user"
   delete 'relationships/destroy', to: 'relationships#destroy', as: "unfollow_user"

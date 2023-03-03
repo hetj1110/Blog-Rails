@@ -1,0 +1,21 @@
+<div class="container mb-5">
+        <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Articles</th>
+                <th scope="col">Comments</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <% @followers.each do |follower| %>
+                <tr scope="row">
+                    <td><%= link_to follower.username , profile_path(follower) %></td>
+                    <td><%= follower.articles.count %></td>
+                    <td><%= follower.comments.count %></td>
+                </tr>
+            <% end %>
+        </tbody>
+        </table>
+</div>
