@@ -42,8 +42,10 @@
           <p> <%= @article.subject %> </p>
         </div>
       </div>
-      <% if @article.comments.exists? %>
-      <h5>Comments</h5>
+      <% if current_user %>
+        <% if @article.comments.exists? %>
+        <h5>Comments</h5>
+        <% end %>
       <% end %>
       <div class="row">
         <%= render partial: 'comments/comment', collection: @article.comments %>

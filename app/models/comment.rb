@@ -7,15 +7,11 @@ class Comment < ApplicationRecord
   def self.search(search)
     if search
       joins(:user)
-      # .joins(:article)
       .where("users.username LIKE :search OR 
               users.first_name LIKE :search OR 
               users.last_name LIKE :search OR 
               comments.content LIKE :search
               ", search: "%#{search.strip}%")
-              # article.title LIKE :search OR 
-              # article.subject LIKE :search OR 
-              # article.status LIKE :search OR 
     else
       all
     end

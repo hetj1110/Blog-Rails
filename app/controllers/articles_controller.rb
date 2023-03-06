@@ -2,7 +2,6 @@ class ArticlesController < ApplicationController
   load_and_authorize_resource  
   before_action :authenticate_user!, except: %i[ index show search ]
   before_action :set_articles, only: %i[ show edit update destroy ]
-  # before_action :authorize_user!, only: [:edit, :update, :destroy]
 
 
   def index
@@ -16,8 +15,6 @@ class ArticlesController < ApplicationController
   end
 
   def user_articles
-    # @user = User.find_by(params[:user_id])
-    # @articles = @user.articles.order('created_at desc').page(params[:page]).per(5)
     @articles = current_user.articles.order('created_at desc').page(params[:page]).per(5)
   end
 
@@ -77,12 +74,4 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:title, :subject, :status, :body)
     end
-
-    # def authorize_user!
-    #   unless @article.user == current_user
-    #   flash[:notice] = "You are not authorized to perform this action."
-    #   redirect_to article_path(@article)
-    #   end
-    # end
-
 end

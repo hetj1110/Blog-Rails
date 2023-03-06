@@ -3,8 +3,7 @@ class CommentsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
     before_action :set_article, except: [:all_comments, :approve_comments ]
     before_action :set_comment, only: [:show, :edit, :update, :destroy]
-    # before_action :authorize_user!, only: [:edit, :update, :destroy]
-    # before_action :authorize_approver!, only: [:all_comments, :approve_comments]
+
 
     def all_comments
       if current_user.role == 'user'
@@ -34,7 +33,6 @@ class CommentsController < ApplicationController
 
       params[:comments].each do |key, value|
         comment = Comment.find(key.split(' ').last)
-        # binding.pry
         if value == '1'
           comment.update(approved: true)
         else
@@ -72,7 +70,6 @@ class CommentsController < ApplicationController
     end
   
     def destroy
-      # @comment.articles.clear
       @comment.destroy
 
       respond_to do |format|
@@ -90,26 +87,12 @@ class CommentsController < ApplicationController
     end
   
     def set_comment
-      # @comment = Comment.find(params[:id])
       @comment = @article.comments.find(params[:id])
     end
   
     def comment_params
       params.require(:comment).permit(:content)
     end
-
-    # def authorize_user!
-    #   unless @comment.user == current_user
-    #     flash[:notice] = "You are not authorized to perform this action."
-    #     redirect_to article_path(@article)
-    #   end
-    # end
-
-    # def authorize_approver!
-    #   unless current_user && current_user.approver?
-    #     redirect_to root_path, alert: "You are not authorized to access this page."
-    #   end
-    # end
 
 end
   

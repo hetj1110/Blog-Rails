@@ -8,18 +8,15 @@ class ProfilesController < ApplicationController
 
   def follower_list
     @followers = @user.followers
-    # binding.pry
   end
 
   def following_list
     @following = @user.following
-    # binding.pry
   end
 
   private
 
   def set_user
     @user = User.find(params[:profile_id])
-    # binding.pry
   end
 end

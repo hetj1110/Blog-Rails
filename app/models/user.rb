@@ -5,7 +5,7 @@ class User < ApplicationRecord
   extend FriendlyId
 
   has_many :articles, dependent: :destroy
-  has_many :comments, dependent: :destroy#through: :articles
+  has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
 
@@ -65,11 +65,6 @@ class User < ApplicationRecord
     self.role ||= :user
   end
          
-  # ROLES.each do |role_name|
-  #   define_method(role_name) do
-  #     role == role_name
-  #   end
-  # end
   
   VALID_GENDER = ['male', 'female', 'unknown']
   
