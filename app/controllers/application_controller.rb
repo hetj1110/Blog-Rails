@@ -14,9 +14,9 @@ class ApplicationController < ActionController::Base
 
 
   # For 404 error but dont use because Profile image does not load
-  def not_found_method
-    render file: Rails.public_path.join("404.html"), status: 404, layout: false
-  end
+  # def not_found_method
+  #   render file: Rails.public_path.join("404.html"), status: 404, layout: false
+  # end
 
   helper_method :like_text
 end

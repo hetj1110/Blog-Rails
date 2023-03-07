@@ -39,16 +39,6 @@ class Article < ApplicationRecord
 
   validates :status, inclusion: { in: VALID_STATUSES }
 
-  def archived?
-    status == 'archived'
-  end
-  def public?
-    status == 'public'
-  end
-  def private?
-    status == 'private'
-  end
-
   private
 
   def after_creation

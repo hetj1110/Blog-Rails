@@ -91,3 +91,28 @@
     </div>
 </section>
 </div>
+<div class="container mt-5 mb-5">
+    <h4><%= "#{@user.first_name + " " + @user.last_name}'s Articles" %></h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Article</th>
+                <th scope="col">Author</th>
+                <th scope="col">Views</th>
+                <th scope="col">Status</th>
+                <th scope="col">Likes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @user.articles.each do |article| %>
+                <tr scope="row">
+                    <td><%= link_to article.title , article%></td>
+                    <td><%= article.user.username %></td>
+                    <td><%= article.views %></td>
+                    <td><%= article.status %></td>
+                    <td><%= article.likes.count %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

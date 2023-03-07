@@ -1,5 +1,5 @@
 <div class="container mb-5">
-    <h3><%= current_user.username %>Articles</h3>
+    <h3><%= current_user.username %> Articles</h3>
 <br><br>
         <% if can? :create, Article %>
             <%= link_to "New Article", new_article_path %>
