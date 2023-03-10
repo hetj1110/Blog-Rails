@@ -15,7 +15,7 @@ class ArticlesController < ApplicationController
   end
 
   def user_articles
-    @articles = current_user.articles.order('created_at desc').page(params[:page]).per(5)
+    @articles = current_user.articles.order('created_at desc').search(params[:search]).page(params[:page]).per(5)
   end
 
   def show
