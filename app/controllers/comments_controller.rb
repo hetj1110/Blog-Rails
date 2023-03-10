@@ -6,12 +6,8 @@ class CommentsController < ApplicationController
 
 
     def all_comments
-      if current_user.role == 'user'
-        @comments = Comment.where(article_id: current_user.articles.pluck(:id)).order('created_at desc').search(params[:search])
-      else
-        @comments = Comment.all.order('created_at desc').search(params[:search])
-      end
-      
+      @comments = Comment.order('created_at desc').search(params[:search]).select{|comment| can?(:all_comments, comment)}
+
       if @comments.present?
         @comments = Kaminari.paginate_array(@comments).page(params[:page]).per(8)
       else
@@ -22,7 +18,6 @@ class CommentsController < ApplicationController
     
     def approve_comments
       # @comment = Comment.find(params[:id])
-      # binding.pry
       # if @comment.update(params[:approved])
       #   flash[:alert] = "Commets have been Approved"
       #   redirect_to unapproved_comments_path
@@ -32,7 +27,7 @@ class CommentsController < ApplicationController
       # end
 
       params[:comments].each do |key, value|
-        comment = Comment.find(key.split(' ').last)
+        comment = Comment.find(key)
         if value == '1'
           comment.update(approved: true)
         else

@@ -21,8 +21,6 @@ Rails.application.routes.draw do
 
   resources :likes, only: [:create, :destroy]
   get 'likes/update'
-
-  get '/search', to: "articles#search"
   
   resources :articles do
     collection do
@@ -36,9 +34,9 @@ Rails.application.routes.draw do
   get '/comments/all_comments', to: 'comments#all_comments',as: 'all_comments'
   patch '/comments/approve_comments', to: 'comments#approve_comments', as: 'approving_comments'
 
-  root 'home#index'
+  root 'articles#index'
   
-  get 'confirmation_panding', to: "home#after_registration_path"
+  get 'confirmation_panding', to: "articles#after_registration_path"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -1,5 +1,5 @@
 <div class="container mb-5">
-        <table class="table mt-4">
+        <table class="table text-light mt-2">
         <thead>
             <tr>
                 <th scope="col">User</th>
@@ -11,7 +11,7 @@
         <tbody>
             <% @followers.each do |follower| %>
                 <tr scope="row">
-                    <td><%= link_to follower.username , profile_path(follower) %></td>
+                    <td><%= link_to follower.username , profile_path(follower), class: "text-light" %></td>
                     <td><%= follower.articles.count %></td>
                     <td><%= follower.comments.count %></td>
                 </tr>

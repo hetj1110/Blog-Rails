@@ -6,14 +6,14 @@
                 <div class="about-text go-to">
                     <h3 class="dark-color"><%= @user.fullname %></h3>
                     <% if user_signed_in? && @user == current_user %>
-                    <h6 ><%= link_to 'Edit Profile', edit_user_registration_path, class: "theme-color lead" %></h6>
+                    <h6><%= link_to 'Edit Profile', edit_user_registration_path, class: "theme-color lead link-light" %></h6>
                     <% end %>
-                    <h6><%= link_to "Following : #{ @user.following.count }", profile_following_path(@user), class: "link-dark" %> &nbsp;&nbsp;&nbsp;&nbsp; <%= link_to "Followers : #{ @user.followers.count }", profile_followers_path(@user), class: "link-dark" %> </h6>
+                    <h6><%= link_to "Following : #{ @user.following.count }", profile_following_path(@user), class: "link-danger" %> &nbsp;&nbsp;&nbsp;&nbsp; <%= link_to "Followers : #{ @user.followers.count }", profile_followers_path(@user), class: "link-danger" %> </h6>
                     <% if user_signed_in? && @user != current_user %>
                         <% if current_user.following?(@user) %>
-                            <%= button_to "Unfollow", unfollow_user_path(user_id: @user.id), method: :delete, class: "btn btn-dark" %>
+                            <%= button_to "Unfollow", unfollow_user_path(user_id: @user.id), method: :delete, class: "btn btn-dark btn-outline-light", style: "opacity: 0.6;" %>
                         <% else %>
-                            <%= button_to "Follow", follow_user_path(user_id: @user.id), method: :post, class: "btn btn-primary" %>
+                            <%= button_to "Follow", follow_user_path(user_id: @user.id), method: :post, class: "btn btn-danger btn-outline-light", style: "opacity: 0.6;" %>
                         <% end %>
                     <% end %>
                     <div class="row about-list">
@@ -78,12 +78,13 @@
             <div class="col-lg-6">
                 <div class="about-avatar">
                     <% if @user.avatar.attached? %>
-                        <%= link_to image_tag(@user.avatar_as_thumbnail), @user.avatar %>
+                        <%= link_to image_tag(@user.avatar_as_thumbnail), @user.avatar, 
+                        style: "opacity: 1;"%>
                         <% if @user == current_user %>
-                            <%= button_to 'Delete Profile Picture', delete_user_avatar_path(@user), class: "btn btn-dark mt-2", method: :delete %>
+                            <%= button_to 'Delete Profile Picture', delete_user_avatar_path(@user), data: {  confirm: "Are you sure?" }, class: "btn btn-dark btn-outline-light bg-transparent mt-3", method: :delete %>
                         <% end %>
                     <% else %>
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" title="" alt="">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png", style="opacity: 0.8;">
                     <% end %>
                 </div>
             </div>
@@ -93,7 +94,7 @@
 </div>
 <div class="container mt-5 mb-5">
     <h4><%= "#{@user.first_name + " " + @user.last_name}'s Articles" %></h4>
-    <table class="table">
+    <table class="table text-light mt-2">
         <thead>
             <tr>
                 <th scope="col">Article</th>
@@ -104,9 +105,9 @@
             </tr>
         </thead>
         <tbody>
-            <% @user.articles.each do |article| %>
+            <% @articles.each do |article| %>
                 <tr scope="row">
-                    <td><%= link_to article.title , article%></td>
+                    <td><%= link_to article.title , article, class: "link-light" %></td>
                     <td><%= article.user.username %></td>
                     <td><%= article.views %></td>
                     <td><%= article.status %></td>

@@ -3,7 +3,7 @@ class LikesController < ApplicationController
     before_action :authenticate_user!
     
     def update
-       
+        @article = Article.find_by(params[:id])
         like = Like.where(article: Article.find(params[:article]), user: current_user)
         if like == []
             Like.create(article: Article.find(params[:article]), user: current_user)
@@ -13,8 +13,9 @@ class LikesController < ApplicationController
             @like_exists = false
         end
         respond_to do |format|
-            format.html {  }
-            format.js { }
+            format.html { redirect_to article_path(@article) }
+            format.json { render :show, status: :ok, location: @article }
+            format.js 
         end
     end
 

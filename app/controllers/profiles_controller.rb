@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @articles = @user.articles.select{|article| can?(:read, article)}
   end
 
   def follower_list

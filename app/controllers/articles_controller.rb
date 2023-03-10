@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
         @articles = Kaminari.paginate_array(@articles).page(params[:page]).per(8)
       else
         flash[:notice] = "No Result found"
-        redirect_to root_path
+        redirect_to articles_path
       end
   end
 
@@ -19,8 +19,9 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    @user = User.find_by(params[:user_id])
     @article.update( views: @article.views + 1 )
-    @like_exists = Like.where(article: @article, user: current_user) == [] ? false : true
+    @like_exists = Like.where(article: @article, user: @user) == [] ? false : true
   end
 
   def new
@@ -58,7 +59,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-
+    
     respond_to do |format|
       format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
       format.json { head :no_content }
@@ -74,4 +75,5 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:title, :subject, :status, :body)
     end
+
 end

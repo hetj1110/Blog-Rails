@@ -1,17 +1,16 @@
 <div class="container mt-2 mb-3">
     <%= form_tag articles_path, method: :get do %>
-        <%= search_field_tag :search , params[:search], class:"form-control", placeholder: "Search Here" %>
-        <%= submit_tag "Search", class:"btn btn-dark mt-2" %>
+        <%= search_field_tag :search , params[:search], class:"form-control form-control-lg bg-transparent", style: 'color: white;', placeholder: "Search Here" %>
+        <%= submit_tag "Search", class:"btn btn-outline-light btn-lg px-5 mt-1" %>
     <% end %>
 </div>
 <div class="container mb-5">
     <h3>Articles</h3>
-            There are <%= @articles.count %> articles On the page 
-<br><br>
+<br>
         <% if can? :create, Article %>
-            <%= link_to "New Article", new_article_path %>
+            <%= link_to "New Article", new_article_path, class: "link-light" %>
         <% end %>
-        <table class="table mt-4">
+        <table class="table text-light mt-4">
         <thead>
             <tr>
                 <th scope="col">Article</th>
@@ -24,7 +23,7 @@
         <tbody>
             <% @articles.each_with_index do |article,index| %>
                 <tr scope="row">
-                    <td><%= link_to article.title , article%></td>
+                    <td><%= link_to article.title , article, class: "link-light"%></td>
                     <td><%= article.user.username %></td>
                     <td><%= article.views %></td>
                     <td><%= article.status %></td>

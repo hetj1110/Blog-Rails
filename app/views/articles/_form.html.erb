@@ -1,39 +1,53 @@
 <%= form_with model: article do |form| %>
-    <div class="card  mb-5">
-        <div class="card-header">
-             <div class="row  container-fluid">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <%= form.label :title %><br>
-                        <%= form.text_field :title, class:"form-control" %>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <%= form.label :status %><br>
-                        <%= form.select :status, ['public', 'private', 'archived'], selected: 'public',  class:"btn btn-dark dropdown-toggle" %>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card-body">
-            <p>
-                 <div class="form-group">
-                    <%= form.label :subject %><br>
-                    <%= form.text_area :subject, class:"form-control", rows: "15"  %>
-                </div>
-            </p>
-            <p>
-                 <div class="form-group">
-                    <%= form.label :body %><br>
-                    <%= form.rich_text_area :body, class:"form-control", rows: "15"  %>
-                </div>
-            </p>
-            <div class="actions mb-2 mt-2">
-                <%= form.submit class:"btn btn-dark btn-lg", data: { turbo: false }  %>
-            </div>
-        </div>
+  <% if @article.errors.any? %>
+    <div class="alert alert-dark alert-dismissible fade show bg-transparent" role="alert">
+      <div id="error_explanation">
+        <h2 class="text-light">
+          <%= pluralize(@article.errors.count, "error") %> prohibited
+          this article from being saved:
+        </h2>
+        <ul>
+          <% @article.errors.full_messages.each do |msg| %>
+            <li  class="text-light"><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-
+  <% end %>
+  <div class="card bg-transparent text-white mt-2 mb-3">
+    <div class="card-header">
+      <div class="row container-fluid">
+        <div class="col-sm-6">
+          <div class="form-outline">
+            <%= form.label :title %><br>
+            <%= form.text_field :title, class: "form-control form-control-lg bg-transparent", style: 'color: white;' %>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-outline">
+            <%= form.label :status, class:"form-label" %><br>
+            <%= form.select :status, ['public', 'private', 'archived'], { include_blank: true }, class: "form-control form-control-lg bg-transparent",  style: 'color: black;' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p>
+        <div class="form-outline">
+          <%= form.label :subject %><br>
+          <%= form.text_area :subject, class: "form-control form-control-lg bg-transparent ", style: 'color: white;', rows: "15"  %>
+        </div>
+      </p>
+      <p>
+        <div class="form-outline">
+          <%= form.label :body %><br>
+          <%= form.rich_text_area :body, class:"form-control form-control-lg bg-transparent", style: 'color: white;', rows: "15"  %>
+        </div>
+      </p>
+      <div class="d-flex justify-content-center mb-2 mt-2">
+        <%= form.submit class:"btn btn-outline-light btn-lg px-5", data: { turbo: false }  %>
+      </div>
+    </div>
+  </div>
 <% end %>

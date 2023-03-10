@@ -1,22 +1,27 @@
 <%= form_with(model:[ @article, comment ] , local: true) do |form| %>
-  <% if comment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
 
-      <ul>
-        <% comment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <% if comment.errors.any? %>
+      <div class="alert alert-dark alert-dismissible fade show bg-transparent" role="alert">
+        <div id="error_explanation">
+          <h2 class="text-light"><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+          <ul>
+            <% comment.errors.full_messages.each do |message| %>
+              <li class="text-light"><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <% end %>
+  </div>
+
 
   <div class="form-group">
     <%= form.label :comment %>
-    <%= form.text_area :content, class: 'form-control', rows: 4 %>
+    <%= form.text_area :content, class: "form-control form-control-lg bg-transparent", style: 'color: white;', rows: 4 %>
   </div>
 
-  <div class="actions mb-2 mt-2">
-    <%= form.submit class:"btn btn-dark btn-lg", data: { turbo: false }  %>
+  <div class="d-flex justify-content-left mb-2 mt-2">
+    <%= form.submit class:"btn btn-outline-light btn-lg px-5", data: { turbo: false }  %>
   </div>
 <% end %>

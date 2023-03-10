@@ -1,20 +1,20 @@
 <% if can? :read, comment %>
   <div class="col-sm-6">
-    <div class="card m-2" style="width: 18rem;">
+    <div class="card bg-transparent text-white m-2" style="width: 18rem;">
       <div class="card-body">
         <p class="card-text">
           <div class="comment">
-            <p class="card-text"><%= comment.content %> - <%= link_to comment.user.username, profile_path(comment.user),  class: "link-dark" %></p>
+            <p class="card-text"><%= comment.content %> - <%= link_to comment.user.username, profile_path(comment.user),  class: "link-light" %></p>
             <small><small class="card-text text-muted"> Created <%= time_tag @article.created_at, "data-local": 'time-ago' %> </small></small>
           </div>
           </p>
           
               <p>
               <% if can? :update, comment %>
-              <%= link_to 'Edit', edit_article_comment_path(@article, comment), class:"card-link" %> 
+                <%= link_to 'Edit', edit_article_comment_path(@article, comment), class:"card-link link-light" %> 
               <% end %>
               <% if can? :destroy, comment %>
-              <%= button_to "Destroy", article_comment_path(@article, comment),data: { turbo: :false, turbo_confirm: "Are you sure?"}, method: :delete, class: "btn btn-dark" %>
+                <%= button_to "Destroy", article_comment_path(@article, comment),data: { turbo: :false, turbo_confirm: "Are you sure?"}, method: :delete, class: "btn btn-dark btn-outline-light bg-transparent" %>
               <% end %>
               </p>
       </div>

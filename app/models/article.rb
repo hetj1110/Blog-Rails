@@ -13,14 +13,12 @@ class Article < ApplicationRecord
   def self.search(search)
     if search
       joins(:user)
-      .joins(:comments)
       .where("articles.title LIKE :search OR 
               articles.subject LIKE :search OR 
               articles.status LIKE :search OR 
               users.username LIKE :search OR 
               users.first_name LIKE :search OR 
-              users.last_name LIKE :search OR 
-              comments.content LIKE :search", 
+              users.last_name LIKE :search ", 
               search: "%#{search.strip}%")
     else
       all

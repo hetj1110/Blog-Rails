@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Blogs</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,13 +27,13 @@
       <ul class = "navbar-nav ms-auto mb-2 mb-lg-0">
          <% if user_signed_in? %>
           <li class="nav-item dropdown">
-            <li class="nav-item mt-3">Hello <%= current_user.fullname %></li>
+            <li class="nav-item mt-3 text-light">Hello <%= current_user.fullname %></li>
             <%= render 'shared/photo' %>
-            <ul class="dropdown-menu dropdown-menu-lg-end">
-              <li><%= link_to "Profile", profile_path(current_user), class: "dropdown-item" %></li>
-              <li><%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %></li>
+            <ul class="dropdown-menu dropdown-menu-lg-end bg-transparent">
+              <li><%= link_to "Profile", profile_path(current_user), class: "dropdown-item text-light" %></li>
+              <li><%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item text-light" %></li>
               <li><hr class="dropdown-divider"></li>
-              <li><%= button_to "Logout", destroy_user_session_path, class: "dropdown-item btn btn-light", method: :delete %></li>
+              <li><%= button_to "Logout", destroy_user_session_path, class: "dropdown-item btn btn-light text-light", method: :delete %></li>
             </ul>
           </li>
           <% else %>
