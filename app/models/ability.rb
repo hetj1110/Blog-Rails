@@ -28,9 +28,9 @@ class Ability
       
       # User can only approve Comments on his own Articles
       cannot [ :all_comments, :approve_comments ], Comment
-      can [:all_comments, :approve_comments], Comment do |comment|
-        comment.article.user == user
-      end
+      # can [:all_comments, :approve_comments], Comment do |comment|
+        # comment.article.user == user
+      # end
       
       can [ :update ], Like
       can [:create, :destroy], Like
