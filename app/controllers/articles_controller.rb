@@ -19,9 +19,8 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @user = User.find_by(params[:user_id])
+    @like_exists = Like.where(article: @article, user: current_user) == [] ? false : true
     @article.update( views: @article.views + 1 )
-    @like_exists = Like.where(article: @article, user: @user) == [] ? false : true
   end
 
   def new

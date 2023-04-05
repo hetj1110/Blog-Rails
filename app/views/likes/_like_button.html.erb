@@ -1,0 +1,11 @@
+<div id= "like_link">
+  <% if user_signed_in? %>
+    <% if can? :update, Like %>
+      <%= link_to like_text, likes_update_path(@article), remote: true, class: "btn btn-dark like-btn", id: 'like_btn' %>
+    <% end %>
+  <% end %>
+</div>
+
+
+
+<div id='het'>dfjhshjkfdjsjkldfskj</div>

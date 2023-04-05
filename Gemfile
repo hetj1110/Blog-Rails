@@ -89,6 +89,7 @@ gem "cancancan", "~> 3.4"
 
 # This is for Bootstarp CSS
 gem 'cssbundling-rails'
+gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
 
 # This is for adding Contries
 gem 'city-state'

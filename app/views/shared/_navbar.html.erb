@@ -17,10 +17,12 @@
             <%= link_to "Approver Console", all_comments_path, class: "nav-link" %>
         </li>
         <% end %>
+        <% if can? :create, Article %>
         <% if current_user %>
         <li class="nav-item">
             <%= link_to "Your Articles", articles_user_articles_path(@user), class: "nav-link" %>
         </li>
+        <% end %>
         <% end %>
       </ul>
 

@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, :with => :not_found_method
 
   protect_from_forgery with: :exception
+  protect_from_forgery except: :update
+  
   
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
@@ -15,9 +18,9 @@ class ApplicationController < ActionController::Base
   end
 
   # For 404 error but dont use because Profile image does not load
-  # def not_found_method
-  #   render file: Rails.public_path.join("404.html"), status: 404, layout: false
-  # end
+  def not_found_method
+    render file: Rails.public_path.join("404.html"), status: 404, layout: false
+  end
 
   helper_method :like_text
 end

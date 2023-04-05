@@ -21,7 +21,7 @@ class Ability
       can :read, Comment
 
       # can [ :update, :destroy], Comment, article: { status: 'public', user_id: user.id  }
-      # cannot :create, Comment, article: { status: 'private', user_id: !user.id }
+      cannot :create, Comment, article: { status: 'private', user_id: !user.id }
 
       # User can destroy commets on his own article
       can :destroy, Comment, article: { user_id: user.id }

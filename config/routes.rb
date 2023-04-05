@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   delete 'relationships/destroy', to: 'relationships#destroy', as: "unfollow_user"
 
   resources :likes, only: [:create, :destroy]
-  get 'likes/update'
+  get 'likes/update', defaults: {format: 'js'}
   
   resources :articles do
     collection do
@@ -44,6 +44,8 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   # To handle Routing Error
-  # match '*unmatched', to: 'application#not_found_method', via: :all
+  get '*path', to: 'application#not_found_method', constraints: lambda { |req|
+     req.path.exclude?("/rails/active_storage")
+    }
 
 end
