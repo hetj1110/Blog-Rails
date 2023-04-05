@@ -22,21 +22,3 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
-
-user.rb
-  # validates :state, inclusion: { in: -> (record) { record.states.keys }, allow_blank: true }
-  # validates :state, presence: { if: -> (record) { record.states.present? } }
-  # validates :city, inclusion: { in: -> (record) { record.cities.keys }, allow_blank: true }
-  # validates :city, presence: { if: -> (record) { record.states.present? } }
-
-
-  # def states
-  #   CS.states(country).with_indifferent_access
-  # end
-
-  # def cities
-  #   CS.cities(state,country) || []
-  # end
-
-
-  # 
